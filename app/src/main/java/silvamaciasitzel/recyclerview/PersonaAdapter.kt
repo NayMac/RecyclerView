@@ -1,4 +1,5 @@
-package com.example.erick.recycler
+package silvamaciasitzel.recyclerview
+
 
 import android.content.Context
 import android.os.Parcel
@@ -12,7 +13,7 @@ import android.widget.ListView
 import android.widget.TextView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.elemento.view.*
-import silvamaciasitzel.recyclerview.R
+
 
 class PersonaAdapter(personas:ArrayList<Persona>,contexto: Context): RecyclerView.Adapter<PersonaAdapter.ViewHolder>(){
     var elementos:ArrayList<Persona>?= null //los elementos, representan a las personas que mostraremos
@@ -24,7 +25,6 @@ class PersonaAdapter(personas:ArrayList<Persona>,contexto: Context): RecyclerVie
     }
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
-
         val vistaPersona:View = LayoutInflater.from(contexto).inflate(R.layout.elemento,p0,false)//creamos la vista "individual"
         val personaViewHolder = ViewHolder(vistaPersona)//instanciamos el viewHolder
         vistaPersona.tag = personaViewHolder //a la vista individual le asignamos como Tag el viewholder que creamos
@@ -35,16 +35,18 @@ class PersonaAdapter(personas:ArrayList<Persona>,contexto: Context): RecyclerVie
         return this.elementos!!.count() //retornamos el tamaño de elementos que tenemos, si ponemos un número fijo, solamente esos elementos se mostrarán.
     }
 
-    override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
+
+    //SIRVE PARA CONECTAR LOS DATOS
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         /* Este método relaciona la vista con los datos del modelo */
 
         //vh.nombre.text = elementos[pos].nombre
-        p0.nombre!!.text = elementos!![p1].nombre
-        p0.genero!!.text = elementos!![p1].genero
-        Picasso.get().load(elementos!![p1].foto)
+        holder.nombre!!.text = elementos!![position].nombre
+        holder.genero!!.text = elementos!![position].genero
+        Picasso.get().load(elementos!![position].foto)
                 .placeholder(R.drawable.ic_launcher_foreground)
                 .error(R.drawable.ic_launcher_background)
-                .into(p0.imagen)
+                .into(holder.imagen)
 
     }
 
